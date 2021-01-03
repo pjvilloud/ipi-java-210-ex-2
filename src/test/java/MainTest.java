@@ -26,7 +26,6 @@ public class MainTest {
     @Test
     public void exo01() throws Exception {
         TestUtils.checkStaticFinalField("Main", "MAX_PTS_VIE", "short", (short)100);
-        TestUtils.checkStaticFinalField("Main", "ACTIVER_BOUCLIER", "boolean", true);
         TestUtils.checkStaticFinalField("Main", "PTS_BOUCLIER", "short", (short)25);
         TestUtils.checkStaticFinalField("Main", "MAX_ATTAQUE_ENNEMI", "short", (short)5);
         TestUtils.checkStaticFinalField("Main", "MAX_VIE_ENNEMI", "short", (short)30);
@@ -40,6 +39,8 @@ public class MainTest {
         TestUtils.checkStaticField("Main", "ptsDeVie", "short", (short)0);
         TestUtils.checkStaticField("Main", "ptsBouclier", "short", (short)0);
         TestUtils.checkStaticField("Main", "nbEnnemisTues", "short", (short)0);
+        TestUtils.checkStaticField("Main", "bouclierActif", "boolean", true);
+
     }
 
     @Test
@@ -81,14 +82,6 @@ public class MainTest {
 
     @Test
     public void exo06() throws Exception {
-        /**
-         *  //Le joueur attaque l'ennemi
-         *         short dommages = nombreAuHasard(MAX_ATTAQUE_JOUEUR);
-         *         System.out.print(Util.color(nomPersonnage, Color.GREEN) + " attaque l'" + Util.color("ennemi", Color.YELLOW) + " !");
-         *         System.out.println("Il lui fait " + Util.color(dommages, Color.PURPLE) + " points de dommages");
-         *         ennemi -= dommages;
-         *         return ennemi;
-         */
         TestUtils.checkStaticMethod("Main", "attaqueJoueur", "short", short.class);
         Main.nomPersonnage = "test";
         ByteArrayOutputStream outContent;
@@ -112,6 +105,31 @@ public class MainTest {
 
 
         }
+
+    }
+
+    @Test
+    public void exo07() throws Exception {
+        TestUtils.checkStaticMethod("Main", "afficherPersonnage", "void");
+        Class.forName("Main").getDeclaredField("ptsDeVie").set(null, (short)100);
+        Class.forName("Main").getDeclaredField("ptsBouclier").set(null, (short)25);
+        Class.forName("Main").getDeclaredField("nomPersonnage").set(null, "John");
+
+        ByteArrayOutputStream outContent;
+        outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        TestUtils.callDMethod("Main", "afficherPersonnage");
+
+        Assertions.assertThat(outContent.toString()).isEqualToIgnoringNewLines(
+                Util.color("John", Color.GREEN) + " (" + Util.color("100", Color.RED) + " " + Util.color("25", Color.BLUE) + ")");
+
+        outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Class.forName("Main").getDeclaredField("bouclierActif").set(null, false);
+        TestUtils.callDMethod("Main", "afficherPersonnage");
+        Assertions.assertThat(outContent.toString()).isEqualToIgnoringNewLines(
+                Util.color("John", Color.GREEN) + " (" + Util.color("100", Color.RED) + ")");
 
     }
 

@@ -16,7 +16,6 @@ Créer les constantes suivantes dans la classe `Main` (au niveau de la classe, p
 Utiliser des types primitifs et préfixer toutes les déclarations par `static`
 
 - `MAX_PTS_VIE` de type `short` et de valeur `100`
-- `ACTIVER_BOUCLIER` de type `boolean` et de valeur `true`
 - `PTS_BOUCLIER` de type `short` et de valeur `25`
 - `MAX_ATTAQUE_ENNEMI` de type `short` et de valeur `5`
 - `MAX_VIE_ENNEMI` de type `short` et de valeur `30`
@@ -31,6 +30,7 @@ Créer les variables suivantes dans la classe `Main` (au niveau de la classe, pa
 - `ptsDeVie` de type `short`
 - `ptsBouclier` de type `short`
 - `nbEnnemisTues` de type `short`
+- `bouclierActif` de type `boolean` et de valeur `true`
 
 ## Exercice 3
 
@@ -67,8 +67,21 @@ points de vie de l'ennemi à combattre. Cette méthode retourne le nombre de poi
 après l'attaque du joueur. Le nombre de points de vie à retrancher est un nombre au hasard entre 0 et le nombre de points maximum
 que peut enlever le joueur (voir les constantes). L'affichage produit par cette méthode devra être exactement celui-ci () : 
 A noter que le mot ennemi doit être affiché en jaune et le nombre de points de dommage retranchés (ici 4 dans l'exemple)
-doit être affiché en violet.
+doit être affiché en violet (et le nom toujours en vert !).
 
 ```
 John attaque l'ennemi ! Il lui fait perdre 4 points de dommages
+```
+
+## Exercice 7
+
+Créer la méthode (toujours `static`) `afficherPersonnage` permettant d'afficher le nom du personnage, le nombre de points de vie 
+et de bouclier (si le bouclier est actif...) qu'il détient actuellement. L'affichage produit par cette méthode devra être exactement celui-ci
+A noter que le nombre de points de vie doit être affiché en rouge et le nombre de points du bouclier en bleu (et le nom toujours en vert !)
+``` 
+John (100 25)
+```
+ou si le bouclier est desactivé 
+``` 
+John (100)
 ```

@@ -4,7 +4,6 @@ public class Main {
 
     //Constantes
     static final short MAX_PTS_VIE = 100;
-    static final boolean ACTIVER_BOUCLIER = true;
     static final short PTS_BOUCLIER = 25;
     static final short MAX_ATTAQUE_ENNEMI = 5;
     static final short MAX_VIE_ENNEMI = 30;
@@ -14,6 +13,7 @@ public class Main {
     //Variables
     static String nomPersonnage;
     static short ptsDeVie;
+    static boolean bouclierActif = true;
     static short ptsBouclier;
     static short nbEnnemisTues = 0;
 
@@ -32,7 +32,7 @@ public class Main {
             System.out.println("Combat avec un ennemi possédant " + Util.color(ennemi, Color.PURPLE) + " points de vie !");
 
             while(true){
-                afficherJoueur();
+                afficherPersonnage();
                 System.out.println(" vs " + Util.color("ennemi", Color.YELLOW) + " (" + Util.color(ennemi, Color.PURPLE) + ")");
                 ennemi = attaque(ennemi, joueurJoueEnPremier);
                 ennemi = attaque(ennemi, !joueurJoueEnPremier);
@@ -48,7 +48,7 @@ public class Main {
                     return;
                 }
                 //Régénération du bouclier si activé
-                if(ACTIVER_BOUCLIER){
+                if(bouclierActif){
                     System.out.println("Régénération du bouclier : +" + Util.color(REGENARATION_BOUCLIER_PAR_TOUR, Color.BLUE));
                     ptsBouclier += REGENARATION_BOUCLIER_PAR_TOUR;
                     ptsBouclier = (short)Math.min(ptsBouclier, PTS_BOUCLIER);
@@ -90,17 +90,17 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         nomPersonnage = scanner.next();
         ptsDeVie = MAX_PTS_VIE;
-        ptsBouclier = ACTIVER_BOUCLIER ? PTS_BOUCLIER : 0;
+        ptsBouclier = bouclierActif ? PTS_BOUCLIER : 0;
         System.out.println("OK " + Util.color(nomPersonnage, Color.GREEN) + " ! C'est parti !");
     }
 
     /**
      * Méthode qui affiche le nom du joueur et ses points de vie en rouge et bouclier en bleu
      */
-    public static void afficherJoueur(){
-        System.out.print(Util.color(nomPersonnage, Color.GREEN) + " (" + Util.color(ptsDeVie, Color.RED) + " ");
-        if(ACTIVER_BOUCLIER){
-            System.out.print(Util.color(ptsBouclier, Color.BLUE));
+    public static void afficherPersonnage(){
+        System.out.print(Util.color(nomPersonnage, Color.GREEN) + " (" + Util.color(ptsDeVie, Color.RED));
+        if(bouclierActif){
+            System.out.print(" " + Util.color(ptsBouclier, Color.BLUE));
         }
         System.out.print(")");
     }
