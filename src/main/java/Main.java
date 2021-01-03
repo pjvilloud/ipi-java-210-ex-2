@@ -8,7 +8,7 @@ public class Main {
     static final short MAX_ATTAQUE_ENNEMI = 5;
     static final short MAX_VIE_ENNEMI = 30;
     static final short MAX_ATTAQUE_JOUEUR = 5;
-    static final short REGENARATION_BOUCLIER_PAR_TOUR = 1;
+    static final short REGENARATION_BOUCLIER_PAR_TOUR = 10;
 
     //Variables
     static String nomPersonnage;
@@ -47,16 +47,20 @@ public class Main {
                     System.out.println(Util.color(nomPersonnage, Color.GREEN) + " est mort mais a tué " + nbEnnemisTues + " ennemis");
                     return;
                 }
-                //Régénération du bouclier si activé
-                if(bouclierActif){
-                    System.out.println("Régénération du bouclier : +" + Util.color(REGENARATION_BOUCLIER_PAR_TOUR, Color.BLUE));
-                    ptsBouclier += REGENARATION_BOUCLIER_PAR_TOUR;
-                    ptsBouclier = (short)Math.min(ptsBouclier, PTS_BOUCLIER);
-                }
+            }
+            //Est-ce que tous les ennemis sont morts ?
+            if(nbEnnemisTues == ennemis.length){
+                break;
+            }
+            //Régénération du bouclier si activé
+            if(bouclierActif){
+                System.out.println("Régénération du bouclier : +" + Util.color(REGENARATION_BOUCLIER_PAR_TOUR, Color.BLUE));
+                ptsBouclier += REGENARATION_BOUCLIER_PAR_TOUR;
+                ptsBouclier = (short)Math.min(ptsBouclier, PTS_BOUCLIER);
             }
             System.out.println("Saisisser S pour passer au combat suivant ou n'importe quoi d'autre pour fuir...");
             if(!new Scanner(System.in).nextLine().equals("S")){
-                System.out.println("Espèce de lâche !");
+                System.out.println("Vous avez tué " + nbEnnemisTues + " ennemis mais êtes partis lâchement avant la fin...");
                 return;
             }
         }
@@ -70,7 +74,7 @@ public class Main {
      * @return le tableau contenant les ennemis
      */
     static short[] initEnnemis(){
-        System.out.println("Combien souhaittez-vous combattre d'ennemis ?");
+        System.out.println("Combien souhaitez-vous combattre d'ennemis ?");
         Scanner scanner = new Scanner(System.in);
         short nbEnnemis = scanner.nextShort();
         System.out.println("Génération des ennemis...");

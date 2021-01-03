@@ -8,20 +8,11 @@ import org.mockito.Mockito;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.anyShort;
-import static org.mockito.ArgumentMatchers.eq;
-
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MainTest {
-
-    @Test
-    public void exo00() throws Exception {
-        TestUtils.checkStaticMethod("Main", "main", "void", String[].class);
-    }
 
     @Test
     public void exo01() throws Exception {
@@ -30,7 +21,7 @@ public class MainTest {
         TestUtils.checkStaticFinalField("Main", "MAX_ATTAQUE_ENNEMI", "short", (short) 5);
         TestUtils.checkStaticFinalField("Main", "MAX_VIE_ENNEMI", "short", (short) 30);
         TestUtils.checkStaticFinalField("Main", "MAX_ATTAQUE_JOUEUR", "short", (short) 5);
-        TestUtils.checkStaticFinalField("Main", "REGENARATION_BOUCLIER_PAR_TOUR", "short", (short) 1);
+        TestUtils.checkStaticFinalField("Main", "REGENARATION_BOUCLIER_PAR_TOUR", "short", (short) 10);
     }
 
     @Test
@@ -204,5 +195,27 @@ public class MainTest {
         result = (short)TestUtils.callMethodPrimitiveParameters("Main", "attaque", (short) 5, false);
         Assertions.assertThat(result).isEqualTo((short) 5);
 
+    }
+
+    @Test
+    public void exo10() throws Exception {
+        TestUtils.checkStaticMethod("Main", "initEnnemis", "short[]");
+
+        ByteArrayInputStream inContent;
+        inContent = new ByteArrayInputStream("2".getBytes());
+        System.setIn(inContent);
+
+        ByteArrayOutputStream outContent;
+        outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        TestUtils.callMethodPrimitiveParameters("Main", "initEnnemis");
+
+        String[] lines = outContent.toString().split("\n");
+        Assertions.assertThat(lines.length).isEqualTo(4);
+        Assertions.assertThat(lines[0].trim()).isEqualTo("Combien souhaitez-vous combattre d'ennemis ?");
+        Assertions.assertThat(lines[1].trim()).isEqualTo("Génération des ennemis...");
+        Assertions.assertThat(lines[2].trim()).startsWith("Ennemi numéro 1 :");
+        Assertions.assertThat(lines[3].trim()).startsWith("Ennemi numéro 2 :");
     }
 }

@@ -150,6 +150,8 @@ public class TestUtils {
             return void.class;
         } else if(classe.equals("short")){
             return short.class;
+        } else if(classe.equals("short[]")){
+            return short[].class;
         } else if(classe.equals("boolean")){
             return boolean.class;
         }
