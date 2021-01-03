@@ -22,50 +22,6 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        initPersonnage();
-        short[] ennemis = initEnnemis();
-
-        for (short ennemi: ennemis){
-            //On choisit qui commence au hasard
-            boolean joueurJoueEnPremier = hasard(0.5);
-            System.out.println("==========================================================");
-            System.out.println("Combat avec un ennemi possédant " + Util.color(ennemi, Color.PURPLE) + " points de vie !");
-
-            while(true){
-                afficherPersonnage();
-                System.out.println(" vs " + Util.color("ennemi", Color.YELLOW) + " (" + Util.color(ennemi, Color.PURPLE) + ")");
-                ennemi = attaque(ennemi, joueurJoueEnPremier);
-                ennemi = attaque(ennemi, !joueurJoueEnPremier);
-                //Est-ce que l'ennemi est mort ?
-                if(ennemi <= 0){
-                    nbEnnemisTues++;
-                    System.out.println("L'" + Util.color("ennemi", Color.YELLOW) + " est mort ! Au suivant !");
-                    break;
-                }
-                //Est-ce que le joueur est mort ?
-                if(ptsBouclier <= 0 && ptsDeVie <= 0){
-                    System.out.println(Util.color(nomPersonnage, Color.GREEN) + " est mort mais a tué " + nbEnnemisTues + " ennemis");
-                    return;
-                }
-            }
-            //Est-ce que tous les ennemis sont morts ?
-            if(nbEnnemisTues == ennemis.length){
-                break;
-            }
-            //Régénération du bouclier si activé
-            if(bouclierActif){
-                System.out.println("Régénération du bouclier : +" + Util.color(REGENARATION_BOUCLIER_PAR_TOUR, Color.BLUE));
-                ptsBouclier += REGENARATION_BOUCLIER_PAR_TOUR;
-                ptsBouclier = (short)Math.min(ptsBouclier, PTS_BOUCLIER);
-            }
-            System.out.println("Saisisser S pour passer au combat suivant ou n'importe quoi d'autre pour fuir...");
-            if(!new Scanner(System.in).nextLine().equals("S")){
-                System.out.println("Vous avez tué " + nbEnnemisTues + " ennemis mais êtes partis lâchement avant la fin...");
-                return;
-            }
-        }
-
-        System.out.println(Util.color(nomPersonnage, Color.GREEN) + " a tué tous les ennemis !");
 
     }
 
