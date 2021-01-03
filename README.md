@@ -111,3 +111,9 @@ ou si le bouclier est vide
 ``` 
 L'ennemi attaque John ! Il lui fait 4 points de dommages ! John perd 4 points de vie
 ```
+
+## Exercice 9
+
+Créer la méthode (toujours `static`) `attaque` prenant en paramètre un nombre de points d'ennemi et un booléen
+définissant si c'est le joueur qui joue et en fonction de ces paramètres, appeler la bonne méthode d'attaque. Renvoyer
+le nombre de points de l'ennemi après l'attaque en retour. Si l'ennemi ou le personnage est mort, pas besoin de combattre !
