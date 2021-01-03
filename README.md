@@ -66,6 +66,8 @@ que peut enlever le joueur (voir les constantes). L'affichage produit par cette 
 A noter que le mot ennemi doit être affiché en jaune et le nombre de points de dommage retranchés (ici 4 dans l'exemple)
 doit être affiché en violet (et le nom toujours en vert !).
 
+Pour tester complètement votre méthode une fois celle-ci développée, décommenter les lignes 77 à 98 dans `MainTest`
+
 ```
 John attaque l'ennemi ! Il lui fait perdre 4 points de dommages
 ```
@@ -94,6 +96,8 @@ puis les points de vie du personnage. L'affichage produit par cette méthode dev
 
 À noter que le mot ennemi est à afficher en jaune, le nom du personnage en vert, le nombre de points de bouclier enlevés en bleu, 
 et le nombre de points de vie enlevés en rouge. Le nombre de points de dommages total est affiché normalement
+
+Pour tester complètement votre méthode une fois celle-ci développée, décommenter les lignes 134 à 172 dans `MainTest`
 
 Si le bouclier a ici 3 points
 ``` 
