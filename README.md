@@ -37,9 +37,9 @@ Créer les variables suivantes dans la classe `Main` (au niveau de la classe, pa
 Créer la méthode (toujours `static`) `initPersonnage` permettant de demander à l'utilisateur le nom de son personnage,
 et d'affecter ses points de vie et de bouclier (voir exo 2) aux valeurs par défaut (voir les constantes de l'exo 1). 
 L'affichage devra être exactement celui-ci (la deuxième ligne représente le nom saisi par l'utilisateur) : 
+
 A noter que partout dans le programme ou le nom du personnage sera affiché (ici John dans l'exemple), il faudra qu'il soit en vert 
 (Utiliser la méthode `Util.color()`).
-
 
 ```
 Saisir le nom de votre personnage
@@ -66,6 +66,7 @@ Créer la méthode (toujours `static`) `attaqueJoueur` prenant en paramètre un 
 points de vie de l'ennemi à combattre. Cette méthode retourne le nombre de points de vie restant de l'ennemi (peut être négatif...)
 après l'attaque du joueur. Le nombre de points de vie à retrancher est un nombre au hasard entre 0 et le nombre de points maximum
 que peut enlever le joueur (voir les constantes). L'affichage produit par cette méthode devra être exactement celui-ci () : 
+
 A noter que le mot ennemi doit être affiché en jaune et le nombre de points de dommage retranchés (ici 4 dans l'exemple)
 doit être affiché en violet (et le nom toujours en vert !).
 
@@ -77,11 +78,36 @@ John attaque l'ennemi ! Il lui fait perdre 4 points de dommages
 
 Créer la méthode (toujours `static`) `afficherPersonnage` permettant d'afficher le nom du personnage, le nombre de points de vie 
 et de bouclier (si le bouclier est actif...) qu'il détient actuellement. L'affichage produit par cette méthode devra être exactement celui-ci
+
 A noter que le nombre de points de vie doit être affiché en rouge et le nombre de points du bouclier en bleu (et le nom toujours en vert !)
+
 ``` 
 John (100 25)
 ```
 ou si le bouclier est desactivé 
 ``` 
 John (100)
+```
+
+## Exercice 8
+
+Créer la méthode (toujours `static`) `attaqueEnnemi` qui permet à l'ennemi d'attaquer le personnage. Le nombre de points 
+de dommages effectués par l'attaque est un nombre au hasard entre 0 et le nombre de points maximum
+que peut enlever l'ennemi (voir les constantes). C'est en priorité le bouclier qui prend les dommages jusqu'à épuisement
+puis ensuite les points de vie du personnage. L'affichage produit par cette méthode devra être exactement le suivant :
+
+A noter que le mot ennemi est à afficher en jaune, le nom du personnage en vert, le nombre de points de bouclier enlevés en bleu, 
+et le nombre de points de vie enlevés en rouge. Le nombre de points de dommages total est affiché normalement
+
+Si le bouclier a ici 3 points
+``` 
+L'ennemi attaque John ! Il lui fait 4 points de dommages ! Le bouclier perd 3 points. John perd 1 points de vie
+```
+ou si le bouclier a plus de points que l'attaque
+``` 
+L'ennemi attaque John ! Il lui fait 4 points de dommages ! Le bouclier perd 4 points.
+```
+ou si le bouclier est vide
+``` 
+L'ennemi attaque John ! Il lui fait 4 points de dommages ! John perd 4 points de vie
 ```

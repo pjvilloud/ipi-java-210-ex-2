@@ -133,4 +133,51 @@ public class MainTest {
 
     }
 
+    @Test
+    public void exo08() throws Exception {
+        TestUtils.checkStaticMethod("Main", "attaqueEnnemi", "void");
+        Class.forName("Main").getDeclaredField("ptsDeVie").set(null, (short)100);
+        Class.forName("Main").getDeclaredField("ptsBouclier").set(null, (short)25);
+        Class.forName("Main").getDeclaredField("nomPersonnage").set(null, "John");
+
+        ByteArrayOutputStream outContent;
+        outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        try (MockedStatic<Main> mockedStatic = Mockito.mockStatic(Main.class)) {
+
+            mockedStatic
+                    .when(() -> Main.nombreAuHasard((short) 5))
+                    .thenReturn((short) 4);
+            mockedStatic.when(Main::attaqueEnnemi)
+                    .thenCallRealMethod();
+            Main.ptsDeVie = 5;
+            Main.ptsBouclier = 5;
+            Main.nomPersonnage = "John";
+
+            Main.attaqueEnnemi();
+            Assertions.assertThat(outContent.toString().trim()).isEqualToIgnoringNewLines(
+                    "L'" + Util.color("ennemi", Color.YELLOW) + " attaque " + Util.color("John", Color.GREEN) +
+                            " ! Il lui fait 4 points de dommages ! Le bouclier perd " + Util.color("4", Color.BLUE) + " points.");
+
+            outContent = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outContent));
+
+            Main.attaqueEnnemi();
+            Assertions.assertThat(outContent.toString().trim()).isEqualToIgnoringNewLines(
+                    "L'" + Util.color("ennemi", Color.YELLOW) + " attaque " + Util.color("John", Color.GREEN) +
+                            " ! Il lui fait 4 points de dommages ! Le bouclier perd " + Util.color("1", Color.BLUE) + " points. " +
+                            Util.color("John", Color.GREEN) + " perd " + Util.color("3", Color.RED) + " points de vie !");
+
+
+            outContent = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outContent));
+
+            Main.attaqueEnnemi();
+            Assertions.assertThat(outContent.toString().trim()).isEqualToIgnoringNewLines(
+                    "L'" + Util.color("ennemi", Color.YELLOW) + " attaque " + Util.color("John", Color.GREEN) +
+                            " ! Il lui fait 4 points de dommages ! " +
+                            Util.color("John", Color.GREEN) + " perd " + Util.color("4", Color.RED) + " points de vie !");
+        }
+    }
 }
