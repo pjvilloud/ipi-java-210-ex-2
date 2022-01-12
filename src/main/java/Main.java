@@ -34,4 +34,16 @@ public class Main {
         ptsBouclier = PTS_BOUCLIER;
         scanner.close();
     }
+
+    public static boolean hasard(double pourcentage){
+        //pourcentage < résultat du chiffre random => true
+        //sinon faux
+        return pourcentage < Math.random();
+    }
+
+    public static short nombreAuHasard(short nombre) {
+        return (short) Math.round(Math.random() * nombre);
+    }
+
+
 }
