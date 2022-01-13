@@ -38,8 +38,6 @@ public class Main {
         //Affecter la variable ptsBouclier
         ptsBouclier = bouclierActif ? PTS_BOUCLIER : 0;
         scanner.close();
-        int a = Math.min(4,5); //=>4
-        int b = Math.max(4,5); //=>5
     }
 
     public static boolean hasard(double pourcentage){
@@ -99,20 +97,7 @@ public class Main {
             System.out.print(nomPersonnage + " perd " + Util.color(dommages, Color.RED) + " points de vie ! ");
         }
     }
-    /*Créer la méthode (toujours `static`) `initEnnemis` renvoyant un tableau de `short` et permettant de gérer un nombre
-d'ennemis saisi par l'utilisateur (ici dans l'exemple 3). Le tableau contiendra les points de vie des ennemis qui seront déterminés au hasard
-entre 0 et le nombre de points de vie maximum (voir les constantes...). L'affichage produit par cette méthode devra être exactement celui-ci :
 
-A noter que le nombre de points de vie de l'ennemi doit être affiché en violet, le reste de manière normale.
-
-```
-Combien souhaitez-vous combattre d'ennemis ?
-3
-Génération des ennemis...
-Ennemi numéro 1 : 4
-Ennemi numéro 2 : 3
-Ennemi numéro 3 : 5
-*/
     public static short[] initEnnemis(){
         System.out.println("Combien souhaitez-vous combattre d'ennemis ?");
         //Récupère le nombre d'ennemis saisis par l'utilisateur
@@ -125,8 +110,28 @@ Ennemi numéro 3 : 5
             //Remplir la case i avec un nombre ou hasard entre 0 et la vie max des ennemis
             ennemis[i] = nombreAuHasard(MAX_ATTAQUE_ENNEMI);
             //Affichage de l'ennemi
-            System.out.println("Ennemi numéro " + (i + 1) + " : " + ennemis[i]);
+            System.out.println("Ennemi numéro " + (i + 1) + " : " + Util.color(ennemis[i], Color.PURPLE));
         }
         return ennemis;
+    }/*## Exercice 9
+
+Créer la méthode (toujours `static`) `attaque` prenant en paramètre un nombre de points d'ennemi et un booléen
+définissant si c'est le joueur qui joue et en fonction de ces paramètres, appeler la bonne méthode d'attaque. Renvoyer
+le nombre de points de l'ennemi après l'attaque en retour. Si l'ennemi ou le personnage est mort, pas besoin de combattre !*/
+    public static short attaque(short ennemi, boolean joueurAttaque){
+        //Vérifier si l'un des deux combattants est mort => si oui, on ne fait aucune attaque
+        if(ptsDeVie <= 0 || ennemi <= 0){
+            return ennemi;
+        }
+        //On va faire attaquer le joueur si c'est à lui d'attquer
+        if(joueurAttaque){
+            ennemi = attaqueJoueur(ennemi);
+        }
+        //Sinon, on fait attaquer l'ennemi
+        else {
+            attaqueEnnemi();
+        }
+        //On renvoie le nombre de points de l'ennemi
+        return ennemi;
     }
 }
