@@ -15,12 +15,7 @@ public class Main {
 
     public static void main(String[] args)
     {
-        initPersonnage();
-        short ennemi = 5;
-        ennemi = attaqueJoueur(ennemi);
-        System.out.println("Il reste " + ennemi + " points de vie à l'ennemi");
-        ptsBouclier = 1;
-        attaqueEnnemi();
+     //TODO exercice 11
     }
 
     public static void initPersonnage()
