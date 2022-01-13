@@ -19,6 +19,8 @@ public class Main {
         short ennemi = 5;
         ennemi = attaqueJoueur(ennemi);
         System.out.println("Il reste " + ennemi + " points de vie à l'ennemi");
+        ptsBouclier = 1;
+        attaqueEnnemi();
     }
 
     public static void initPersonnage()
@@ -34,8 +36,10 @@ public class Main {
         //Affecter la variable ptdDeVie
         ptsDeVie = MAX_PTS_VIE;
         //Affecter la variable ptsBouclier
-        ptsBouclier = PTS_BOUCLIER;
+        ptsBouclier = bouclierActif ? PTS_BOUCLIER : 0;
         scanner.close();
+        int a = Math.min(4,5); //=>4
+        int b = Math.max(4,5); //=>5
     }
 
     public static boolean hasard(double pourcentage){
@@ -62,4 +66,67 @@ public class Main {
         return ptsVieEnnemi;
     }
 
+    public static void afficherPersonnage(){
+    System.out.print(Util.color(nomPersonnage, Color.GREEN) + " (" + Util.color(ptsDeVie, Color.RED));
+    if(bouclierActif) {
+        System.out.print(" " + Util.color(ptsBouclier, Color.BLUE));
+    }
+    System.out.print(")");
+    }
+
+    public static void attaqueEnnemi() {
+        //Déterminer la force de l'attaque
+        short dommages = nombreAuHasard(MAX_ATTAQUE_ENNEMI);
+        //Affiche le début de la description de l'attaque
+        System.out.print("L'" + Util.color("ennemi", Color.YELLOW) + " attaque " + Util.color(nomPersonnage, Color.GREEN) + " ! ");
+        System.out.print("Il lui fait" + dommages + " points de dommages ! ");
+        //Le bouclier absorbe les dégats en premier s'il est actif et qu'il n'est pas bide
+        if (bouclierActif && ptsBouclier > 0) {
+            if (ptsBouclier >= dommages) {
+                ptsBouclier -= dommages;
+                System.out.print("Le bouclier perd" + Util.color(dommages, Color.BLUE) + " points de vie ! ");
+                dommages = 0;
+            }
+            else {
+                dommages -= ptsBouclier;
+                ptsBouclier = 0;
+            }
+        }
+
+        //Les points de vie du joueur absorbent le reste
+        if (dommages > 0) {
+            ptsDeVie -= dommages; //ptsDeVie = (short) (ptsDeVie - dommages)
+            System.out.print(nomPersonnage + " perd " + Util.color(dommages, Color.RED) + " points de vie ! ");
+        }
+    }
+    /*Créer la méthode (toujours `static`) `initEnnemis` renvoyant un tableau de `short` et permettant de gérer un nombre
+d'ennemis saisi par l'utilisateur (ici dans l'exemple 3). Le tableau contiendra les points de vie des ennemis qui seront déterminés au hasard
+entre 0 et le nombre de points de vie maximum (voir les constantes...). L'affichage produit par cette méthode devra être exactement celui-ci :
+
+A noter que le nombre de points de vie de l'ennemi doit être affiché en violet, le reste de manière normale.
+
+```
+Combien souhaitez-vous combattre d'ennemis ?
+3
+Génération des ennemis...
+Ennemi numéro 1 : 4
+Ennemi numéro 2 : 3
+Ennemi numéro 3 : 5
+*/
+    public static short[] initEnnemis(){
+        System.out.println("Combien souhaitez-vous combattre d'ennemis ?");
+        //Récupère le nombre d'ennemis saisis par l'utilisateur
+        Scanner scanner = new Scanner(System.in);
+        int nbEnnemis = scanner.nextInt();
+        System.out.println("Génération des ennemis...");
+        //Déclarer et Initialiser le tableau qui va contenir les points de vie de tous mes ennemis
+        short[] ennemis = new short[nbEnnemis];
+        for(int i = 0; i < nbEnnemis; i++) {
+            //Remplir la case i avec un nombre ou hasard entre 0 et la vie max des ennemis
+            ennemis[i] = nombreAuHasard(MAX_ATTAQUE_ENNEMI);
+            //Affichage de l'ennemi
+            System.out.println("Ennemi numéro " + (i + 1) + " : " + ennemis[i]);
+        }
+        return ennemis;
+    }
 }
