@@ -140,13 +140,16 @@ Ennemi numéro 3 : 5
 Il est temps de tout câbler ! Remplir la méthode `main` afin de mettre en place le jeu :
 
 - Commencer par initialiser le personnage du joueur ainsi que les ennemis.
+
 - Combattre chacun des ennemis en choisissant qui attaque en premier au hasard (une chance sur 2). 
-Les combats sont à mort (ils combattent donc jusqu'à ce que l'un des deux meure) ! 
+  Les combats sont à mort (ils combattent donc jusqu'à ce que l'un des deux meure) ! 
   On affichera avant chaque tour l'état du personnage et l'état de l'ennemi. 
   Si c'est l'ennemi qui meure, on incrémentera le nombre de victimes du joueur.
   Si c'est le joueur qui meure, on affichera le nombre de victimes qu'il a courageusement vaincues.
+
 - Entre chaque ennemi, le bouclier (si activé) se régénère partiellement (voir les constantes...) 
   sans toutefois pouvant excéder la capacité maximale du bouclier.
+
 - Après chaque ennemi, le joueur peut passer à l'ennemi suivant en saisissant la lettre S 
   ou il peut fuir les combats en saisissant toute autre chaîne.
 
